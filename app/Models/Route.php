@@ -23,23 +23,23 @@ class Route extends Model
     }
 
     /**
-     * Get the programmes for the route.
-     */
-    public function programmes()
-    {
-        return $this->hasMany(Programme::class);
-    }
-
-    /**
-     * Get the segments for the route through programmes.
+     * Get the segments for the route.
      */
     public function segments()
     {
-        return $this->hasManyThrough(Segment::class, Programme::class);
+        return $this->hasMany(Segment::class);
     }
 
     /**
-     * The gares that belong to the route.
+     * Get the programmes through segments.
+     */
+    public function programmes()
+    {
+        return $this->hasManyThrough(Programme::class, Segment::class);
+    }
+
+    /**
+     * The gares that belong to the route through etapes.
      */
     public function gares()
     {
