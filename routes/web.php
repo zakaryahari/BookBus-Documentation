@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [SearchController::class , 'index']);
 
-
-Route::post('/register' , [UserController::class , 'register']);
+Route::post('/Rechercher_Offer' , [SearchController::class , 'search']);
