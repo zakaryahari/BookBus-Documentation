@@ -73,23 +73,23 @@ class DatabaseSeeder extends Seeder
         // Create 5 Buses
         Bus::factory(5)->create();
 
-        // Create Programme for the route
-        $programme = Programme::create([
-            'route_id' => $route->id,
-            'jour_depart' => 'Lundi',
-            'heure_depart' => '06:00:00',
-            'heure_arrivee' => '18:00:00',
-        ]);
-
-        // Create Segments with realistic prices and distances
+        // Create Segments for the 'Ligne Sahara-Souss' with realistic prices and distances
         $segments = [
-            ['bus_id' => 1, 'programme_id' => $programme->id, 'tarif' => 200.00, 'distance_km' => 650.0], // Dakhla-Agadir
-            ['bus_id' => 2, 'programme_id' => $programme->id, 'tarif' => 80.00, 'distance_km' => 250.0],  // Agadir-Marrakech
-            ['bus_id' => 3, 'programme_id' => $programme->id, 'tarif' => 280.00, 'distance_km' => 900.0], // Dakhla-Marrakech
+            ['route_id' => $route->id, 'bus_id' => 1, 'tarif' => 200.00, 'distance_km' => 650.0], // Dakhla-Agadir
+            ['route_id' => $route->id, 'bus_id' => 2, 'tarif' => 80.00, 'distance_km' => 250.0],  // Agadir-Marrakech
+            ['route_id' => $route->id, 'bus_id' => 3, 'tarif' => 280.00, 'distance_km' => 900.0], // Dakhla-Marrakech
         ];
         
-        foreach ($segments as $segment) {
-            Segment::create($segment);
+        foreach ($segments as $segmentData) {
+            $segment = Segment::create($segmentData);
+            
+            // Create Programme for each segment
+            Programme::create([
+                'segment_id' => $segment->id,
+                'jour_depart' => 'Lundi',
+                'heure_depart' => '06:00:00',
+                'heure_arrivee' => '18:00:00',
+            ]);
         }
     }
 }
