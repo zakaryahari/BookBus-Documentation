@@ -10,25 +10,25 @@ class Programme extends Model
     use HasFactory;
 
     protected $fillable = [
-        'route_id',
+        'segment_id',
         'jour_depart',
         'heure_depart',
         'heure_arrivee',
     ];
 
     /**
-     * Get the route that owns the programme.
+     * Get the segment that owns the programme.
      */
-    public function route()
+    public function segment()
     {
-        return $this->belongsTo(Route::class);
+        return $this->belongsTo(Segment::class);
     }
 
     /**
-     * Get the segments for the programme.
+     * Get the route through the segment.
      */
-    public function segments()
+    public function route()
     {
-        return $this->hasMany(Segment::class);
+        return $this->hasOneThrough(Route::class, Segment::class, 'id', 'id', 'segment_id', 'route_id');
     }
 }
