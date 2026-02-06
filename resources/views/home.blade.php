@@ -27,18 +27,33 @@
                     <img src="{{ asset('images/satas_logo.jpg') }}" alt="SATAS-Book" class="h-10 w-auto mr-3">
                </div>
                 <div>
-                    {{-- <a href="/Search_page" class="bg-satas-red text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">
-                        Search_page
-                    </a> --}}
+                    @guest
+                        <div class="flex space-x-4">
+                            <a href="{{ route('login') }}" class="text-satas-dark hover:text-satas-red px-4 py-2 rounded-lg transition duration-300">
+                                Connexion
+                            </a>
+                            <a href="{{ route('register') }}" class="bg-satas-red text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                                Inscription
+                            </a>
+                        </div>
+                    @endguest
 
                     @auth
-                        {{-- <button class="bg-blue-500">Book This Trip</button> --}}
-                        <p><a href="/profile">profile</a></p>
+                        <div class="flex items-center space-x-4">
+                            <a href="{{ route('dashboard') }}" class="text-satas-dark hover:text-satas-red px-4 py-2 rounded-lg transition duration-300">
+                                Mes Réservations
+                            </a>
+                            <a href="{{ route('profile.edit') }}" class="text-satas-dark hover:text-satas-red px-4 py-2 rounded-lg transition duration-300">
+                                Profil
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="bg-gray-200 text-satas-dark px-6 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                    Déconnexion
+                                </button>
+                            </form>
+                        </div>
                     @endauth
-
-                    @guest
-                        <a href="/login">login</a>
-                    @endguest
                 </div>
             </div>
         </div>
@@ -57,7 +72,7 @@
 
             <!-- Search Form -->
             <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl mx-auto">
-                <form action="/Rechercher_Offer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6" method="POST">
+                <form action="/Rechercher_Offer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" method="POST">
                     @csrf
                     <div class="lg:col-span-1">
                         <label class="block text-sm font-medium text-satas-dark mb-2">Ville de Départ</label>
@@ -78,16 +93,6 @@
                     <div class="lg:col-span-1">
                         <label class="block text-sm font-medium text-satas-dark mb-2">Date de Départ</label>
                         <input name="Start_Date" type="date" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-satas-red focus:border-transparent" min="{{ date('Y-m-d') }}" >
-                    </div>
-                    <div class="lg:col-span-1">
-                        <label class="block text-sm font-medium text-satas-dark mb-2">Passagers</label>
-                        <select name="Passagers" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-satas-red focus:border-transparent">
-                            <option>1 Passager</option>
-                            <option>2 Passagers</option>
-                            <option>3 Passagers</option>
-                            <option>4 Passagers</option>
-                            <option>5+ Passagers</option>
-                        </select>
                     </div>
                     <div class="lg:col-span-1">
                         <label class="block text-sm font-medium text-transparent mb-2">.</label>
