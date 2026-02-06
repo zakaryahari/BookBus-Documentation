@@ -22,4 +22,9 @@ class UserController extends Controller
         return "your register() successfuly name :";
 
     }
+
+    public function index($id) {
+        return "hi man this is the id :" . $id;
+    }
+    
 }
