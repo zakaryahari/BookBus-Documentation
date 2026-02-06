@@ -119,35 +119,39 @@
                                     <div class="flex-1">
                                         <div class="flex items-center mb-4">
                                             <div class="text-2xl font-bold text-satas-dark">
-                                                {{ $trajet->programmes->first()->heure_depart ?? '06:00' }}
+                                                {{ $trajet->programme->heure_depart ?? '06:00' }}
                                             </div>
                                             <div class="mx-4 flex-1">
                                                 <div class="border-t-2 border-gray-300 relative">
                                                     <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gray-300 text-xs px-2 py-1 rounded">
-                                                        {{ number_format($trajet->distance_km / 100, 1) }}h {{ (int)(($trajet->distance_km % 100) * 0.6) }}m
+                                                        {{ number_format($trajet->distance_km / 100, 1) }}h 
+                                                        {{-- {{ (int)(($trajet->distance_km % 100) * 0.6) }}m --}}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="text-2xl font-bold text-satas-dark">
-                                                {{ $trajet->programmes->first()->heure_arrivee ?? '12:30' }}
+                                                {{ $trajet->programme->heure_arrivee ?? '12:30' }}
                                             </div>
                                         </div>
                                         <div class="flex items-center space-x-4 mb-2">
                                             <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                                                {{ $trajet->bus->statut ?? 'Standard' }}
+                                                {{ $trajet->programme->bus->statut ?? 'Standard' }}
                                             </span>
                                             <span class="text-green-600 font-medium">
-                                                {{ $trajet->bus->capacite - $trajet->reservations->sum('nombre_places') }} places restantes
+                                                {{ $trajet->programme->bus->capacite - $trajet->reservations->sum('nombre_places') }} places restantes
                                             </span>
                                         </div>
                                         <div class="text-gray-600">
-                                            Bus {{ $trajet->bus->matricule }} • Capacité {{ $trajet->bus->capacite }} places
+                                            Bus {{ $trajet->programme->bus->immatriculation }} • Capacité {{ $trajet->programme->bus->capacite }} places
                                         </div>
                                     </div>
-                                    <div class="mt-4 md:mt-0 md:ml-6">
-                                        <button class="bg-satas-red text-white px-8 py-4 rounded-xl hover:bg-red-700 transition duration-300 font-bold text-xl">
-                                            {{ number_format($trajet->tarif, 0) }} DH
-                                        </button>
+                                    <div class="mt-4 md:mt-0 md:ml-6 flex flex-col space-y-2">
+                                        <div class="text-right mb-2">
+                                            <span class="text-3xl font-bold text-satas-dark">{{ number_format($trajet->tarif, 0) }} DH</span>
+                                        </div>
+                                        <a href="{{ route('booking.select', $trajet->id) }}" class="bg-satas-red text-white px-8 py-3 rounded-xl hover:bg-red-700 transition duration-300 font-bold text-center">
+                                            Réserver
+                                        </a>
                                     </div>
                                 </div>
                             </div>
