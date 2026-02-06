@@ -17,18 +17,26 @@ class Programme extends Model
     ];
 
     /**
-     * Get the segment that owns the programme.
-     */
-    public function segment()
-    {
-        return $this->belongsTo(Segment::class);
-    }
-
-    /**
-     * Get the route through the segment.
+     * Get the route that owns the programme.
      */
     public function route()
     {
-        return $this->hasOneThrough(Route::class, Segment::class, 'id', 'id', 'segment_id', 'route_id');
+        return $this->belongsTo(Route::class);
+    }
+
+    /**
+     * Get the bus that owns the programme.
+     */
+    public function bus()
+    {
+        return $this->belongsTo(Bus::class);
+    }
+
+    /**
+     * Get the segments for the programme.
+     */
+    public function segments()
+    {
+        return $this->hasMany(Segment::class);
     }
 }

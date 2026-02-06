@@ -20,4 +20,12 @@ class Ville extends Model
     {
         return $this->hasMany(Gare::class);
     }
+
+    /**
+     * Get the etapes through gares (shortcut for searching).
+     */
+    public function etapes()
+    {
+        return $this->hasManyThrough(Etape::class, Gare::class);
+    }
 }

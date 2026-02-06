@@ -33,11 +33,11 @@ class Segment extends Model
     }
 
     /**
-     * Get the programmes for the segment.
+     * Get the programme that owns the segment.
      */
-    public function programmes()
+    public function programme()
     {
-        return $this->hasMany(Programme::class);
+        return $this->belongsTo(Programme::class);
     }
 
     /**
@@ -46,5 +46,13 @@ class Segment extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function departEtape() { 
+        return $this->belongsTo(Etape::class, 'depart_etape_id'); 
+    }
+
+    public function arriveEtape() { 
+        return $this->belongsTo(Etape::class, 'arrive_etape_id'); 
     }
 }

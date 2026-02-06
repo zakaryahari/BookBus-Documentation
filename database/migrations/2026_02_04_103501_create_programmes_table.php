@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('route_id')->constrained('routes')->onDelete('cascade');
-            $table->string('jour_depart');
+            $table->foreignId('bus_id')->constrained('buses')->onDelete('cascade');
+            $table->string('jour_depart')->index(); // Indexed for performance
             $table->time('heure_depart');
             $table->time('heure_arrivee');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('programmes');

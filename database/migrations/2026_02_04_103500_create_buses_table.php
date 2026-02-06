@@ -6,24 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('routes', function (Blueprint $table) {
+        Schema::create('buses', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->text('description');
+            $table->string('immatriculation')->unique();
+            $table->string('modele');
+            $table->integer('capacite');
+            $table->enum('statut', ['actif', 'maintenance', 'hors_service'])->default('actif');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('routes');
+        Schema::dropIfExists('buses');
     }
 };

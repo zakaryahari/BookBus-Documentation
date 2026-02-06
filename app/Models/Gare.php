@@ -26,8 +26,8 @@ class Gare extends Model
     /**
      * The routes that belong to the gare.
      */
-    public function routes()
+    public function etape()
     {
-        return $this->belongsToMany(Route::class, 'etapes');
+        return $this->hasMany(Etape::class);
     }
 }

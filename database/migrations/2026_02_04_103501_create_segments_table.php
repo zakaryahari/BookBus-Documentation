@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('segments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bus_id')->constrained('buses')->onDelete('cascade');
             $table->foreignId('programme_id')->constrained('programmes')->onDelete('cascade');
+            $table->foreignId('depart_etape_id')->constrained('etapes')->onDelete('cascade');
+            $table->foreignId('arrive_etape_id')->constrained('etapes')->onDelete('cascade');
             $table->decimal('tarif', 8, 2);
             $table->float('distance_km');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('segments');

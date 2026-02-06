@@ -16,10 +16,10 @@ class Bus extends Model
     ];
 
     /**
-     * Get the segment for the bus (1-to-1).
+     * Get the programmes for the bus.
      */
-    public function segment()
+    public function programmes()
     {
-        return $this->hasOne(Segment::class);
+        return $this->hasMany(Programme::class);
     }
 }

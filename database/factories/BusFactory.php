@@ -17,9 +17,10 @@ class BusFactory extends Factory
     public function definition(): array
     {
         return [
-            'matricule' => fake()->unique()->numerify('#####') . '-' . fake()->randomLetter() . '-' . fake()->numerify('##'),
+            'immatriculation' => fake()->unique()->numerify('#####') . '-' . fake()->randomLetter() . '-' . fake()->numerify('##'),
+            'modele' => fake()->randomElement(['Mercedes Sprinter', 'Iveco Daily', 'Renault Master', 'Ford Transit']),
             'capacite' => fake()->numberBetween(30, 60),
-            'statut' => fake()->randomElement(['Actif', 'En maintenance', 'Hors service']),
+            'statut' => fake()->randomElement(['actif', 'maintenance', 'hors_service']),
         ];
     }
 }

@@ -31,4 +31,12 @@ class Etape extends Model
     {
         return $this->belongsTo(Gare::class);
     }
+
+    /**
+     * Get the segments that depart from this etape.
+     */
+    public function departingSegments()
+    {
+        return $this->hasMany(Segment::class, 'depart_etape_id');
+    }
 }
