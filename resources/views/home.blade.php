@@ -27,9 +27,18 @@
                     <img src="{{ asset('images/satas_logo.jpg') }}" alt="SATAS-Book" class="h-10 w-auto mr-3">
                </div>
                 <div>
-                    <a href="/Search_page" class="bg-satas-red text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                    {{-- <a href="/Search_page" class="bg-satas-red text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">
                         Search_page
-                    </a>
+                    </a> --}}
+
+                    @auth
+                        {{-- <button class="bg-blue-500">Book This Trip</button> --}}
+                        <p><a href="/profile">profile</a></p>
+                    @endauth
+
+                    @guest
+                        <a href="/login">login</a>
+                    @endguest
                 </div>
             </div>
         </div>
