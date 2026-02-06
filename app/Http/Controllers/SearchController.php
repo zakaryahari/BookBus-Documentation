@@ -21,18 +21,13 @@ class SearchController extends Controller
             'departure_city' => 'required|exists:villes,id',
             'arrival_city'   => 'required|exists:villes,id|different:departure_city',
             'Start_Date' => 'required|date|after_or_equal:today',
-            'Passagers' => 'required'
         ]);
 
-        // Find segments using the new depart_etape_id and arrive_etape_id structure
         $results = Segment::whereHas('departEtape.gare', function($q) use ($request) {
                 $q->where('ville_id', $request->departure_city);
             })
             ->whereHas('arriveEtape.gare', function($q) use ($request) {
                 $q->where('ville_id', $request->arrival_city);
-            })
-            ->whereHas('programme.bus', function($q) use ($request) {
-                $q->where('capacite', '>=', $request->Passagers);
             })
             ->with(['programme.bus', 'programme', 'departEtape.gare.ville', 'arriveEtape.gare.ville', 'reservations'])
             ->get();
