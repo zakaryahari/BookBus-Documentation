@@ -24,18 +24,17 @@ class SearchController extends Controller
             'Passagers' => 'required'
         ]);
 
-        // Find segments that belong to routes connecting the departure and arrival cities
-        $results = Segment::whereHas('route.etapes.gare', function($q) use ($request) {
+        // Find segments using the new depart_etape_id and arrive_etape_id structure
+        $results = Segment::whereHas('departEtape.gare', function($q) use ($request) {
                 $q->where('ville_id', $request->departure_city);
             })
-            ->whereHas('route.etapes.gare', function($q) use ($request) {
+            ->whereHas('arriveEtape.gare', function($q) use ($request) {
                 $q->where('ville_id', $request->arrival_city);
             })
-            ->whereHas('programmes')
-            ->whereHas('bus', function($q) use ($request) {
+            ->whereHas('programme.bus', function($q) use ($request) {
                 $q->where('capacite', '>=', $request->Passagers);
             })
-            ->with(['bus', 'programmes', 'route.etapes.gare.ville', 'reservations'])
+            ->with(['programme.bus', 'programme', 'departEtape.gare.ville', 'arriveEtape.gare.ville', 'reservations'])
             ->get();
 
         return view('search-results', [
